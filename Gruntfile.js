@@ -64,7 +64,7 @@ module.exports = function(grunt) {
       // When there will be changes in img catalogue execute task copy:server
       copy: {
         files: ['<%= config.src %>/img/{,*/}*'],
-        tasks: ['copy:server']
+        tasks: ['copy:img']
       },
       livereload: {
         options: {
@@ -92,6 +92,7 @@ module.exports = function(grunt) {
                 sourcemap: true,
                 sassDir: '<%= config.src %>/scss',
                 cssDir: '<%= config.dist %>/css',
+                imagesDir: '<%= config.dist %>/css',
                 environment: 'development'
             }
         }
@@ -132,11 +133,11 @@ module.exports = function(grunt) {
 
     // Task for copying content of img catalogue content to dest
     copy: {
-      server: {
-        flatten: true,
+      img: {
         expand: true,
-        src: 'src/img/*',
-        dest: 'dist/img/',
+        cwd: '<%= config.src %>/img',
+        src: '**/*.{png,jpg,svg}',
+        dest: '<%= config.dist %>/img',
       },
     },
 
@@ -149,8 +150,8 @@ module.exports = function(grunt) {
   grunt.registerTask('server', [
     'clean',
     'assemble',
+    'copy:img:',
     'compass:server',
-    'copy:server',
     'connect:livereload',
     'watch'
   ]);
