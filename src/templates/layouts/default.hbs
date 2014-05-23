@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{title}} | {{site.title}}</title>
+
+    <!-- Custom styles for this template -->
+    <link href="{{assets}}/css/style.css" rel="stylesheet">
+    
+  </head>
+  <body>
+
+    {{> navbar-fixed-top }}
+
+    <div class="container theme-showcase" role="main">
+
+      {{> body }}
+
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{{assets}}/js/bootstrap.min.js"></script>
+  </body>
+</html>

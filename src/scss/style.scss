@@ -1,0 +1,12 @@
+@import "normalize";
+@import "kicss";
+@import "settings";
+
+body {
+  background: #eeeeee;
+
+  @include breakpoint(smartphone){ background: #cccccc; }
+  @include breakpoint(tablet){ background: #dddddd; }
+  @include breakpoint(large){ background: #ffffff; }
+
+}
