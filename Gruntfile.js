@@ -17,11 +17,12 @@
 
 module.exports = function(grunt) {
 
-    grunt.loadNpmTasks('assemble');
-    grunt.loadNpmTasks('grunt-contrib-compass');
-    grunt.loadNpmTasks('grunt-contrib-clean');
-    grunt.loadNpmTasks('grunt-contrib-connect');
-    grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('assemble');
+  grunt.loadNpmTasks('grunt-contrib-compass');
+  grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-copy');
 
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
@@ -50,7 +51,10 @@ module.exports = function(grunt) {
           files: ['Gruntfile.js']
       },
       compass: {
-          files: ['<%= config.src %>/scss/{,*/}*.{scss,sass}'],
+          files: [
+              '<%= config.src %>/scss/{,*/}*.{scss,sass}',
+              '<%= config.src %>/scss/components/*.{scss,sass}'
+          ],
           tasks: ['compass:server'],
           options: {
               livereload: true

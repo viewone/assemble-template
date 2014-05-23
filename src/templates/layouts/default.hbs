@@ -1,27 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{title}} | {{site.title}}</title>
+<!doctype html>
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="pl"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="pl"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="pl"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-    <!-- Custom styles for this template -->
+    <title>{{title}}</title>
+    <meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE" />
+    <meta name="author" content="ViewOne | Boutique Design Agency">
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <!--[if IE 8]>
+        <link rel="shortcut icon" href="/favicon.ico" />
+    <![endif]-->
+
     <link href="{{assets}}/css/style.css" rel="stylesheet">
-    
-  </head>
-  <body>
+    <script src=""></script>
 
-    {{> navbar-fixed-top }}
+    <link href="{{assets}}/js/vendor/jReject/css/jquery.reject.css" rel="stylesheet">
 
-    <div class="container theme-showcase" role="main">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/vendor/jquery/dist/jquery.min.js"><\/script>')</script>
 
-      {{> body }}
+    <!--[if lt IE 9]>
+        <%= javascript_include_tag 'vendor/selectivizr/selectivizr.js' %>
+    <![endif]-->
 
-    </div>
+    <script src="{{assets}}/js/vendor/retina.js/src/retina.js"></script>
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://code.jquery.com/jquery.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="{{assets}}/js/bootstrap.min.js"></script>
-  </body>
+    <script src="{{assets}}/js/vendor/jquery-placeholder/jquery.placeholder.min.js"></script>
+    <script src="{{assets}}/js/vendor/jReject/js/jquery.reject.js"></script>
+    <script src="{{assets}}/js/jreject.js"></script>
+</head>
+<body>
+
+    {{> body }}
+
+</body>
 </html>
