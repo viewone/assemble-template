@@ -60,6 +60,12 @@ module.exports = function(grunt) {
               livereload: true
           }
       },
+
+      // When there will be changes in img catalogue execute task copy:server
+      copy: {
+        files: ['<%= config.src %>/img/{,*/}*'],
+        tasks: ['copy:server']
+      },
       livereload: {
         options: {
           livereload: '<%= connect.options.livereload %>'
@@ -124,6 +130,16 @@ module.exports = function(grunt) {
       }
     },
 
+    // Task for copying content of img catalogue content to dest
+    copy: {
+      server: {
+        flatten: true,
+        expand: true,
+        src: 'src/img/*',
+        dest: 'dist/img/',
+      },
+    },
+
     // Before generating any new files,
     // remove any previously-created files.
     clean: ['<%= config.dist %>/**/*.{hbs}']
@@ -134,6 +150,7 @@ module.exports = function(grunt) {
     'clean',
     'assemble',
     'compass:server',
+    'copy:server',
     'connect:livereload',
     'watch'
   ]);
