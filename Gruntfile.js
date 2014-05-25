@@ -52,8 +52,9 @@ module.exports = function(grunt) {
       },
       compass: {
           files: [
-              '<%= config.src %>/scss/{,*/}*.{scss,sass}',
-              '<%= config.src %>/scss/components/*.{scss,sass}'
+              '<%= config.src %>/scss/**/*.{scss,sass}',
+              '<%= config.src %>/scss/modules/**/*.{scss,sass}',
+              '<%= config.src %>/vendor/**/*.{scss,sass}'
           ],
           tasks: ['compass:server'],
           options: {
