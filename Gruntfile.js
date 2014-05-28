@@ -3,7 +3,7 @@
  * generator-assemble v0.4.11
  * https://github.com/assemble/generator-assemble
  *
- * Copyright (c) 2014 Hariadi Hinta
+ * syncright (c) 2014 Hariadi Hinta
  * Licensed under the MIT license.
  */
 
@@ -22,9 +22,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-jsbeautifier');
+  grunt.loadNpmTasks('grunt-sync');
 
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
@@ -67,10 +67,10 @@ module.exports = function(grunt) {
         }
       },
 
-      // When there will be changes in img catalogue execute task copy:server
-      copy: {
+      // When there will be changes in img catalogue execute task sync:server
+      sync: {
         files: ['<%= config.src %>/{img,vendor,js}/**/*'],
-        tasks: ['copy:img', 'copy:js', 'copy:vendor']
+        tasks: ['sync:img', 'sync:js', 'sync:vendor']
       },
       livereload: {
         options: {
@@ -137,25 +137,28 @@ module.exports = function(grunt) {
       }
     },
 
-    // Task for copying content of img catalogue content to dest
-    copy: {
+    // Task for syncing content of img catalogue content to dest
+    sync: {
       img: {
         expand: true,
         cwd: '<%= config.src %>/img',
         src: '**/*.{png,jpg,svg}',
         dest: '<%= config.dist %>/img',
+        verbose: true
       },
       js: {
         expand: true,
         cwd: '<%= config.src %>/js',
         src: '**/*',
         dest: '<%= config.dist %>/js',
+        verbose: true
       },
       vendor: {
         expand: true,
         cwd: '<%= config.src %>/vendor',
         src: '**/*',
         dest: '<%= config.dist %>/vendor',
+        verbose: true
       },
     },
 
@@ -193,9 +196,9 @@ module.exports = function(grunt) {
   grunt.registerTask('server', [
     'clean',
     'assemble',
-    'copy:img',
-    'copy:js',
-    'copy:vendor',
+    'sync:img',
+    'sync:js',
+    'sync:vendor',
     'compass:server',
     'connect:livereload',
     'watch'
