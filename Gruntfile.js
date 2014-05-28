@@ -41,25 +41,25 @@ module.exports = function(grunt) {
         tasks: ['assemble']
       },
       js: {
-          files: ['<%= config.src %>/js/**/*.js'],
-          tasks: ['jshint'],
-          options: {
-              livereload: true
-          }
+        files: ['<%= config.src %>/js/**/*.js'],
+        tasks: ['jshint'],
+        options: {
+            livereload: true
+        }
       },
       gruntfile: {
-          files: ['Gruntfile.js']
+        files: ['Gruntfile.js']
       },
       compass: {
-          files: [
-              '<%= config.src %>/scss/**/*.{scss,sass}',
-              '<%= config.src %>/scss/modules/**/*.{scss,sass}',
-              '<%= config.src %>/vendor/**/*.{scss,sass}'
-          ],
-          tasks: ['compass:server'],
-          options: {
-              livereload: true
-          }
+        files: [
+          '<%= config.src %>/scss/**/*.{scss,sass}',
+          '<%= config.src %>/scss/modules/**/*.{scss,sass}',
+          '<%= config.src %>/vendor/**/*.{scss,sass}'
+        ],
+        tasks: ['compass:server'],
+        options: {
+            livereload: true
+        }
       },
 
       // When there will be changes in img catalogue execute task copy:server
@@ -82,21 +82,21 @@ module.exports = function(grunt) {
 
     // Compiles Sass to CSS and generates necessary files if requested
     compass: {
-        options: {
-            importPath: [
-                '<%= config.src %>/vendor/kicss/scss',
-                '<%= config.src %>/vendor/normalize.scss'
-            ]
-        },
-        server: {
-            options: {              // Target options
-                sourcemap: true,
-                sassDir: '<%= config.src %>/scss',
-                cssDir: '<%= config.dist %>/css',
-                imagesDir: '<%= config.dist %>/css',
-                environment: 'development'
-            }
+      options: {
+        importPath: [
+          '<%= config.src %>/vendor/kicss/scss',
+          '<%= config.src %>/vendor/normalize.scss'
+        ]
+      },
+      server: {
+        options: {              // Target options
+          sourcemap: true,
+          sassDir: '<%= config.src %>/scss',
+          cssDir: '<%= config.dist %>/css',
+          imagesDir: '<%= config.dist %>/css',
+          environment: 'development'
         }
+      }
     },
 
     connect: {
@@ -179,5 +179,4 @@ module.exports = function(grunt) {
   grunt.registerTask('default', [
     'build'
   ]);
-
 };
