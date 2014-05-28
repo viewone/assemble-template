@@ -24,6 +24,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-jsbeautifier');
 
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
@@ -46,9 +47,9 @@ module.exports = function(grunt) {
           '<%= config.src %>/js/**/*.js',
           'Gruntfile.js'
         ],
-        tasks: ['jshint'],
+        tasks: ['jsbeautifier', 'jshint'],
         options: {
-            livereload: true
+          livereload: true
         }
       },
       gruntfile: {
@@ -62,7 +63,7 @@ module.exports = function(grunt) {
         ],
         tasks: ['compass:server'],
         options: {
-            livereload: true
+          livereload: true
         }
       },
 
@@ -93,7 +94,7 @@ module.exports = function(grunt) {
         ]
       },
       server: {
-        options: {              // Target options
+        options: { // Target options
           sourcemap: true,
           sassDir: '<%= config.src %>/scss',
           cssDir: '<%= config.dist %>/css',
@@ -128,7 +129,7 @@ module.exports = function(grunt) {
           layout: '<%= config.src %>/templates/layouts/default.hbs',
           data: '<%= config.src %>/data/*.{json,yml}',
           partials: '<%= config.src %>/templates/partials/*.hbs',
-          plugins: ['assemble-contrib-permalinks','assemble-contrib-sitemap'],
+          plugins: ['assemble-contrib-permalinks', 'assemble-contrib-sitemap'],
         },
         files: {
           '<%= config.dist %>/': ['<%= config.src %>/templates/pages/*.hbs']
@@ -161,6 +162,21 @@ module.exports = function(grunt) {
     // Before generating any new files,
     // remove any previously-created files.
     clean: ['<%= config.dist %>/**/*.{hbs}'],
+
+    jsbeautifier: {
+      files: [
+        'src/js/**/*.js',
+        'Gruntfile.js'
+      ],
+      options: {
+        js: {
+          indentChar: ' ',
+          indentLevel: 0,
+          indentSize: 2,
+          indentWithTabs: false
+        }
+      }
+    },
 
     // Make sure code styles are up to par and there are no obvious mistakes
     jshint: {
