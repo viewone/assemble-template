@@ -11,7 +11,7 @@
 
 // # Globbing
 // for performance reasons we're only matching one level down:
-// '<%= config.src %>/templates/pages/{,*/}*.hbs'
+// '<%= config.src %>/templates/pages/**/*.hbs'
 // use this if you want to match all subfolders:
 // '<%= config.src %>/templates/pages/**/*.hbs'
 
@@ -41,7 +41,7 @@ module.exports = function(grunt) {
         tasks: ['assemble']
       },
       js: {
-          files: ['<%= config.src %>/js/{,*/}*.js'],
+          files: ['<%= config.src %>/js/**/*.js'],
           tasks: ['jshint'],
           options: {
               livereload: true
@@ -64,7 +64,7 @@ module.exports = function(grunt) {
 
       // When there will be changes in img catalogue execute task copy:server
       copy: {
-        files: ['<%= config.src %>/img/{,*/}*'],
+        files: ['<%= config.src %>/img/**/*'],
         tasks: ['copy:img']
       },
       livereload: {
@@ -72,10 +72,10 @@ module.exports = function(grunt) {
           livereload: '<%= connect.options.livereload %>'
         },
         files: [
-          '<%= config.dist %>/{,*/}*.html',
-          '<%= config.dist %>/{,*/}*.css',
-          '<%= config.dist %>/{,*/}*.js',
-          '<%= config.dist %>/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+          '<%= config.dist %>/**/*.html',
+          '<%= config.dist %>/**/*.css',
+          '<%= config.dist %>/**/*.js',
+          '<%= config.dist %>/**/*.{png,jpg,jpeg,gif,webp,svg}'
         ]
       }
     },
