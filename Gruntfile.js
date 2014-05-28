@@ -23,6 +23,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
 
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
@@ -41,7 +42,10 @@ module.exports = function(grunt) {
         tasks: ['assemble']
       },
       js: {
-        files: ['<%= config.src %>/js/**/*.js'],
+        files: [
+          '<%= config.src %>/js/**/*.js',
+          'Gruntfile.js'
+        ],
         tasks: ['jshint'],
         options: {
             livereload: true
@@ -156,8 +160,18 @@ module.exports = function(grunt) {
 
     // Before generating any new files,
     // remove any previously-created files.
-    clean: ['<%= config.dist %>/**/*.{hbs}']
+    clean: ['<%= config.dist %>/**/*.{hbs}'],
 
+    // Make sure code styles are up to par and there are no obvious mistakes
+    jshint: {
+      options: {
+        jshintrc: '.jshintrc'
+      },
+      all: [
+        '<%= config.src %>/js/**/*.js',
+        'Gruntfile.js'
+      ]
+    },
   });
 
   grunt.registerTask('server', [

@@ -1,5 +1,5 @@
 {
-  "name": "generator-viewone-playground",
+  "name": "viewone",
   "version": "0.0.0",
   "dependencies": {},
   "devDependencies": {
@@ -10,6 +10,7 @@
     "grunt-contrib-compass": "^0.8.0",
     "grunt-contrib-connect": "~0.7.1",
     "grunt-contrib-copy": "^0.5.0",
+    "grunt-contrib-jshint": "^0.10.0",
     "grunt-contrib-watch": "~0.6.1",
     "time-grunt": "~0.3.1"
   },
