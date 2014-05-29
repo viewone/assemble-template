@@ -45,6 +45,7 @@ module.exports = function(grunt) {
       js: {
         files: [
           '<%= config.src %>/js/**/*.js',
+          '!<%= config.src %>/js/lib/**/*.js',
           'Gruntfile.js'
         ],
         tasks: ['jsbeautifier', 'jshint'],
@@ -189,6 +190,7 @@ module.exports = function(grunt) {
       },
       all: [
         '<%= config.src %>/js/**/*.js',
+        '!<%= config.src %>/js/lib/**/*.js',
         'Gruntfile.js'
       ]
     },
