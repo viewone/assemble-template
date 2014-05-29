@@ -98,7 +98,8 @@ module.exports = function(grunt) {
           sourcemap: true,
           sassDir: '<%= config.src %>/scss',
           cssDir: '<%= config.dist %>/css',
-          imagesDir: '<%= config.dist %>/css',
+          imagesDir: '<%= config.src %>/img',
+          httpGeneratedImagesPath: '../img',
           environment: 'development'
         }
       }
@@ -125,7 +126,7 @@ module.exports = function(grunt) {
       pages: {
         options: {
           flatten: true,
-          assets: '<%= config.dist %>',
+          assets: '<%= config.distc %>',
           layout: '<%= config.src %>/templates/layouts/default.hbs',
           data: '<%= config.src %>/data/*.{json,yml}',
           partials: '<%= config.src %>/templates/partials/*.hbs',
