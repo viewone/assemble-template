@@ -22,6 +22,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-htmlmin');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-jsbeautifier');
   grunt.loadNpmTasks('grunt-sync');
@@ -40,7 +41,7 @@ module.exports = function(grunt) {
     watch: {
       assemble: {
         files: ['<%= config.src %>/{content,data,templates}/**/*.{md,hbs,yml}'],
-        tasks: ['assemble']
+        tasks: ['assemble', 'htmlmin:dist']
       },
       js: {
         files: [
@@ -137,6 +138,18 @@ module.exports = function(grunt) {
           '<%= config.dist %>/': ['<%= config.src %>/templates/pages/*.hbs']
         }
       }
+    },
+
+    htmlmin: { // Task
+      dist: { // Target
+        options: { // Target options
+          removeComments: true,
+          collapseWhitespace: true
+        },
+        files: { // Dictionary of files
+          'dist/index.html': 'dist/index.html',
+        }
+      },
     },
 
     // Task for syncing content of img catalogue content to dest
