@@ -1,0 +1,7 @@
+#jr_wrap {
+    li {
+        &:before {
+            display: none;
+        }
+    }
+}
