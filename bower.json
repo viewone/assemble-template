@@ -9,7 +9,7 @@
     "jReject": "1.0.2",
     "jquery-placeholder": "2.0.7",
     "retina.js": "1.2.0",
-    "kicss": "git@github.com:viewone/kicss.git",
+    "kicss": "git@github.com:viewone/kicss.git#0.0.1-alpha.2",
     "normalize.scss": "3.0.0-alpha.2+normalize.3.0.0"
   },
   "license": "MIT",
