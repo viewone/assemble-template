@@ -40,7 +40,7 @@ module.exports = function(grunt) {
 
     watch: {
       assemble: {
-        files: ['<%= config.src %>/{content,data,templates}/**/*.{md,hbs,yml}'],
+        files: ['<%= config.src %>/{content,data,templates,partials}/**/*.{md,hbs,yml}'],
         tasks: ['assemble', 'htmlmin:dist']
       },
       js: {
@@ -128,7 +128,7 @@ module.exports = function(grunt) {
       pages: {
         options: {
           flatten: true,
-          assets: '<%= config.distc %>',
+          assets: '<%= config.dist %>',
           layout: '<%= config.src %>/templates/layouts/default.hbs',
           data: '<%= config.src %>/data/*.{json,yml}',
           partials: '<%= config.src %>/templates/partials/*.hbs',
