@@ -4,16 +4,18 @@ $regular: 400;
 $bold: 700;
 
 // Base Font
-$base-font-size: 16;
+$base-font-size: 16px;
 $base-font-family: Arial, sans-serif;
 $base-font-weight: $regular;
-$base-line-height: 24;
+$base-line-height: 24px;
+$base-font-color: #000;
 
 // Alter Font
-$alter-font-size: 10;
+$alter-font-size: 10px;
 $alter-font-family: Verdana, serif;
 $alter-font-weight: $regular;
-$alter-line-height: 16;
+$alter-line-height: 16px;
+$alter-font-color: #000;
 
 //Breakpoints
 $breakpoints: (smartphone: 0, tablet: 767, normal: 1023, large: 1280);
