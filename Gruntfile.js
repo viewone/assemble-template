@@ -19,6 +19,7 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks('assemble');
     grunt.loadNpmTasks('grunt-contrib-compass');
+    grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-contrib-watch');
@@ -63,7 +64,7 @@ module.exports = function(grunt) {
                     '<%= config.src %>/scss/modules/**/*.{scss,sass}',
                     '<%= config.src %>/vendor/**/*.{scss,sass}'
                 ],
-                tasks: ['compass:server'],
+                tasks: ['compass:server', 'concat:css'],
                 options: {
                     livereload: true
                 }
@@ -105,6 +106,13 @@ module.exports = function(grunt) {
                     environment: 'development'
                 }
             }
+        },
+
+        concat: {
+            css: {
+                src: ['<%= config.dist %>/css/slow.css', '<%= config.dist %>/css/style.css'],
+                dest: '<%= config.dist %>/css/style.css',
+            },
         },
 
         connect: {
