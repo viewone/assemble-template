@@ -27,6 +27,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-jsbeautifier');
     grunt.loadNpmTasks('grunt-sync');
+    grunt.loadNpmTasks('grunt-webfont');
 
     // Time how long tasks take. Can help when optimizing build times
     require('time-grunt')(grunt);
@@ -85,6 +86,11 @@ module.exports = function(grunt) {
                     '<%= config.dist %>/**/*.js',
                     '<%= config.dist %>/**/*.{png,jpg,jpeg,gif,webp,svg}'
                 ]
+            },
+
+            webfont: {
+                files: ['<%= config.src %>/svg/icons/*'],
+                tasks: ['webfont']
             }
         },
 
@@ -215,6 +221,18 @@ module.exports = function(grunt) {
                 'Gruntfile.js'
             ]
         },
+
+        webfont: {
+            icons: {
+                src: '<%= config.src %>/svg/icons/*.svg',
+                dest: '<%= config.dist %>/fonts',
+                destCss: '<%= config.src %>/scss/modules',
+                options: {
+                    stylesheet: 'scss',
+                    relativeFontPath: '../fonts'
+                }
+            }
+        }
     });
 
     grunt.registerTask('server', [
