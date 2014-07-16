@@ -55,3 +55,10 @@ $grid: (
 
 //Form
 $paceholder-class: 'placeholder';
+
+//Helpers
+$sizes: (xxs: .25, xs: .5, s: .75, n: 1, m: 1.5, l: 2, xl: 2.5, xxl: 3, xxxl: 4);
+$directions: (t: top, r: right, b: bottom, l: left);
+
+$horizontal-class: h;
+$vertical-class: v;
