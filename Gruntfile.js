@@ -116,7 +116,7 @@ module.exports = function(grunt) {
 
         concat: {
             css: {
-                src: ['<%= config.dist %>/css/slow.css', '<%= config.dist %>/css/style.css'],
+                src: ['<%= config.dist %>/css/modules.css', '<%= config.dist %>/css/layout.css'],
                 dest: '<%= config.dist %>/css/style.css',
             },
         },
@@ -242,6 +242,7 @@ module.exports = function(grunt) {
         'sync:js',
         'sync:vendor',
         'compass:server',
+        'concat:css',
         'connect:livereload',
         'watch'
     ]);
