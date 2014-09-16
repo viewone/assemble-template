@@ -65,13 +65,13 @@ module.exports = function(grunt) {
                     '<%= config.src %>/scss/modules/**/*.{scss,sass}',
                     '<%= config.src %>/vendor/**/*.{scss,sass}'
                 ],
-                tasks: ['compass:server', 'concat:css'],
+                tasks: ['compass:development', 'concat:css'],
                 options: {
                     livereload: true
                 }
             },
 
-            // When there will be changes in img catalogue execute task sync:server
+            // When there will be changes in img catalogue execute task sync:development
             sync: {
                 files: ['<%= config.src %>/{img,vendor,js}/**/*'],
                 tasks: ['sync:img', 'sync:js', 'sync:vendor']
@@ -99,10 +99,9 @@ module.exports = function(grunt) {
             options: {
                 importPath: [
                     '<%= config.src %>/vendor/kicss/scss',
-                    '<%= config.src %>/vendor/normalize.scss'
                 ]
             },
-            server: {
+            development: {
                 options: { // Target options
                     sourcemap: true,
                     sassDir: '<%= config.src %>/scss',
@@ -116,7 +115,7 @@ module.exports = function(grunt) {
 
         concat: {
             css: {
-                src: ['<%= config.dist %>/css/modules.css', '<%= config.dist %>/css/layout.css'],
+                src: ['<%= config.dist %>/vendor/normalize-css/normalize.css', '<%= config.dist %>/css/modules.css', '<%= config.dist %>/css/layout.css'],
                 dest: '<%= config.dist %>/css/style.css',
             },
         },
@@ -182,6 +181,17 @@ module.exports = function(grunt) {
                 dest: '<%= config.dist %>/js',
                 verbose: true
             },
+            fonts: {
+                expand: true,
+                cwd: '<%= config.src %>',
+                src: [
+                    'fonts/*.{eot,svg,ttf,woff,otf}',
+                    'vendor/fontawesome/fonts/*.{eot,svg,ttf,woff,otf}',
+                ],
+                flatten: true,
+                dest: '<%= config.dist %>/fonts',
+                verbose: true
+            },
             vendor: {
                 expand: true,
                 cwd: '<%= config.src %>/vendor',
@@ -235,13 +245,14 @@ module.exports = function(grunt) {
         }
     });
 
-    grunt.registerTask('server', [
+    grunt.registerTask('development', [
         'clean',
         'assemble',
         'sync:img',
         'sync:js',
+        'sync:fonts',
         'sync:vendor',
-        'compass:server',
+        'compass:development',
         'concat:css',
         'connect:livereload',
         'watch'
