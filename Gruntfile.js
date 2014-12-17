@@ -1,3 +1,5 @@
+/* jslint camelcase: false */
+
 /*
  * Generated on 2014-05-21
  * generator-assemble v0.4.11
@@ -9,25 +11,11 @@
 
 'use strict';
 
-// # Globbing
-// for performance reasons we're only matching one level down:
-// '<%= config.src %>/templates/pages/**/*.hbs'
-// use this if you want to match all subfolders:
-// '<%= config.src %>/templates/pages/**/*.hbs'
-
 module.exports = function(grunt) {
 
     grunt.loadNpmTasks('assemble');
-    grunt.loadNpmTasks('grunt-contrib-compass');
-    grunt.loadNpmTasks('grunt-contrib-concat');
-    grunt.loadNpmTasks('grunt-contrib-clean');
-    grunt.loadNpmTasks('grunt-contrib-connect');
-    grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-contrib-htmlmin');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-jsbeautifier');
-    grunt.loadNpmTasks('grunt-sync');
-    grunt.loadNpmTasks('grunt-webfont');
+
+    require('load-grunt-tasks')(grunt);
 
     // Time how long tasks take. Can help when optimizing build times
     require('time-grunt')(grunt);
@@ -37,14 +25,20 @@ module.exports = function(grunt) {
 
         config: {
             src: 'src',
-            dist: 'dist'
+            dist: 'dist',
+            date: Date.now()
         },
 
         watch: {
+            options: {
+                livereload: true
+            },
+
             assemble: {
                 files: ['<%= config.src %>/{content,data,templates,partials}/**/*.{md,hbs,yml}'],
-                tasks: ['assemble', 'htmlmin:dist']
+                tasks: ['assemble']
             },
+
             js: {
                 files: [
                     '<%= config.src %>/js/**/*.js',
@@ -53,33 +47,11 @@ module.exports = function(grunt) {
                 ],
                 tasks: ['jsbeautifier', 'jshint'],
                 options: {
-                    livereload: true
-                }
-            },
-            gruntfile: {
-                files: ['Gruntfile.js']
-            },
-            compass: {
-                files: [
-                    '<%= config.src %>/scss/**/*.{scss,sass}',
-                    '<%= config.src %>/scss/modules/**/*.{scss,sass}',
-                    '<%= config.src %>/vendor/**/*.{scss,sass}'
-                ],
-                tasks: ['compass:development', 'concat:css'],
-                options: {
-                    livereload: true
+                    spawn: false
                 }
             },
 
-            // When there will be changes in img catalogue execute task sync:development
-            sync: {
-                files: ['<%= config.src %>/{img,vendor,js}/**/*'],
-                tasks: ['sync:img', 'sync:js', 'sync:vendor']
-            },
             livereload: {
-                options: {
-                    livereload: '<%= connect.options.livereload %>'
-                },
                 files: [
                     '<%= config.dist %>/**/*.html',
                     '<%= config.dist %>/**/*.css',
@@ -88,34 +60,106 @@ module.exports = function(grunt) {
                 ]
             },
 
+            scss: {
+                files: [
+                    '<%= config.src %>/scss/**/*.{scss,sass}',
+                    '<%= config.src %>/scss/modules/**/*.{scss,sass}',
+                    '<%= config.src %>/vendor/**/*.{scss,sass}'
+                ],
+                tasks: ['sass:development', 'concat:css', 'notify:scss'],
+                options: {
+                    spawn: false
+                }
+            },
+
+            // When there will be changes in img catalogue execute task sync:development
+            sync: {
+                files: ['<%= config.src %>/{img,vendor,js}/**/*'],
+                tasks: ['sync:img', 'sync:js', 'sync:vendor']
+            },
+
             webfont: {
                 files: ['<%= config.src %>/svg/icons/*'],
                 tasks: ['webfont']
+            },
+
+            sprites: {
+                files: ['<%= config.src %>/img/sprites/*'],
+                tasks: ['sprite']
             }
         },
 
+        assemble: {
+            pages: {
+                options: {
+                    flatten: true,
+                    assets: '<%= config.dist %>',
+                    layout: '<%= config.src %>/templates/layouts/default.hbs',
+                    data: '<%= config.src %>/data/*.{json,yml}',
+                    partials: '<%= config.src %>/templates/partials/*.hbs',
+                    plugins: ['assemble-contrib-permalinks', 'assemble-contrib-sitemap'],
+                },
+                files: {
+                    '<%= config.dist %>/': ['<%= config.src %>/templates/pages/*.hbs']
+                }
+            }
+        },
+
+        // Before generating any new files,
+        // remove any previously-created files.
+        clean: {
+            dist: ['<%= config.dist %>/*'],
+            sprite: ['<%= config.dist %>/img/sprites-*.png']
+        },
+
         // Compiles Sass to CSS and generates necessary files if requested
-        compass: {
+        sass: {
             options: {
-                importPath: [
-                    '<%= config.src %>/vendor/kicss/scss',
-                ]
+                includePaths: [
+                    '<%= config.src %>/vendor/bourbon/dist',
+                    '<%= config.src %>/vendor/neat/app/assets/stylesheets',
+                    '<%= config.src %>/vendor/kicss/scss'
+                ],
+                imagePath: '<%= config.src %>/img',
             },
             development: {
                 options: { // Target options
-                    sourcemap: true,
-                    sassDir: '<%= config.src %>/scss',
-                    cssDir: '<%= config.dist %>/css',
-                    imagesDir: '<%= config.src %>/img',
-                    httpGeneratedImagesPath: '../img',
-                    environment: 'development'
+                    sourceMap: true,
+                    outputStyle: 'nested'
+                },
+                files: {
+                    '<%= config.dist %>/css/style.css': '<%= config.src %>/scss/style.scss',
+                }
+            },
+            production: {
+                options: { // Target options
+                    sourceMap: false,
+                    outputStyle: 'compressed'
+                },
+                files: {
+                    '<%= config.dist %>/css/style.css': '<%= config.src %>/scss/style.scss',
                 }
             }
         },
 
         concat: {
             css: {
-                src: ['<%= config.dist %>/vendor/normalize-css/normalize.css', '<%= config.dist %>/css/modules.css', '<%= config.dist %>/css/layout.css'],
+                src: [
+                    '<%= config.dist %>/vendor/normalize-css/normalize.css',
+                    '<%= config.dist %>/fonts/*.css',
+                    '<%= config.dist %>/css/style.css'
+                ],
+                dest: '<%= config.dist %>/css/style.css',
+            },
+        },
+
+        concat_sourcemap: {
+            css: {
+                src: [
+                    '<%= config.dist %>/vendor/normalize-css/normalize.css',
+                    '<%= config.dist %>/fonts/*.css',
+                    '<%= config.dist %>/css/style.css'
+                ],
                 dest: '<%= config.dist %>/css/style.css',
             },
         },
@@ -137,19 +181,39 @@ module.exports = function(grunt) {
             }
         },
 
-        assemble: {
-            pages: {
-                options: {
-                    flatten: true,
-                    assets: '<%= config.dist %>',
-                    layout: '<%= config.src %>/templates/layouts/default.hbs',
-                    data: '<%= config.src %>/data/*.{json,yml}',
-                    partials: '<%= config.src %>/templates/partials/*.hbs',
-                    plugins: ['assemble-contrib-permalinks', 'assemble-contrib-sitemap'],
-                },
+        csscomb: {
+            scss: {
+                expand: true,
+                cwd: '<%= config.src %>/scss',
+                src: ['**/*.scss'],
+                dest: '<%= config.src %>/scss'
+            }
+        },
+
+        cssmin: {
+            production: {
                 files: {
-                    '<%= config.dist %>/': ['<%= config.src %>/templates/pages/*.hbs']
+                    '<%= config.dist %>/css/style.css': ['<%= config.dist %>/css/style.css']
                 }
+            }
+        },
+
+        fontgen: {
+            options: {
+
+            },
+            all: {
+                options: {
+                    path_prefix: '../fonts/',
+                    stylesheet: '<%= config.dist %>/css/fonts.css'
+                },
+                files: [{
+                    src: [
+                        '<%= config.src %>/fonts/**/*.otf',
+                        '<%= config.src %>/fonts/**/*.ttf'
+                    ],
+                    dest: '<%= config.dist %>/fonts'
+                }]
             }
         },
 
@@ -164,46 +228,6 @@ module.exports = function(grunt) {
                 }
             },
         },
-
-        // Task for syncing content of img catalogue content to dest
-        sync: {
-            img: {
-                expand: true,
-                cwd: '<%= config.src %>/img',
-                src: '**/*.{png,jpg,svg}',
-                dest: '<%= config.dist %>/img',
-                verbose: true
-            },
-            js: {
-                expand: true,
-                cwd: '<%= config.src %>/js',
-                src: '**/*',
-                dest: '<%= config.dist %>/js',
-                verbose: true
-            },
-            fonts: {
-                expand: true,
-                cwd: '<%= config.src %>',
-                src: [
-                    'fonts/*.{eot,svg,ttf,woff,otf}',
-                    'vendor/fontawesome/fonts/*.{eot,svg,ttf,woff,otf}',
-                ],
-                flatten: true,
-                dest: '<%= config.dist %>/fonts',
-                verbose: true
-            },
-            vendor: {
-                expand: true,
-                cwd: '<%= config.src %>/vendor',
-                src: '**/*',
-                dest: '<%= config.dist %>/vendor',
-                verbose: true
-            },
-        },
-
-        // Before generating any new files,
-        // remove any previously-created files.
-        clean: ['<%= config.dist %>/**/*.{hbs}'],
 
         jsbeautifier: {
             files: [
@@ -228,8 +252,92 @@ module.exports = function(grunt) {
             all: [
                 '<%= config.src %>/js/**/*.js',
                 '!<%= config.src %>/js/lib/**/*.js',
+                '!<%= config.src %>/js/app/**/*.js',
                 'Gruntfile.js'
             ]
+        },
+
+        notify: {
+            scss: {
+                options: {
+                    title: 'SCSS',
+                    message: 'Processing scss files finished',
+                }
+            }
+        },
+
+        scsslint: {
+            options: {
+                bundleExec: true,
+                colorizeOutput: true,
+                config: '.scss-lint.yml',
+                exclude: [
+                    '<%= config.src %>/scss/modules/_sprites.scss',
+                    '<%= config.src %>/scss/modules/_icons.scss'
+                ]
+            },
+            scss: [
+                '<%= config.src %>/scss/**/*.scss'
+            ],
+        },
+
+        sprite: {
+            all: {
+                src: '<%= config.src %>/img/sprites/*.png',
+                destImg: '<%= config.dist %>/img/sprites-<%= config.date %>.png',
+                imgPath: '../img/sprites-<%= config.date %>.png',
+                cssFormat: 'css',
+                destCSS: '<%= config.src %>/scss/modules/_sprites.scss'
+                    // // OPTIONAL: Specify css options
+                    // cssOpts: {
+                    //     // Some templates allow for skipping of function declarations
+                    //     functions: false,
+
+                //     // CSS template allows for overriding of CSS selectors
+                //     cssClass: function (item) {
+                //         return '.sprite-' + item.name;
+                //     }
+                // }
+            }
+        },
+
+        // Task for syncing content of img catalogue content to dest
+        sync: {
+            img: {
+                expand: true,
+                cwd: '<%= config.src %>/img',
+                src: '**/*.{png,jpg,svg}',
+                dest: '<%= config.dist %>/img',
+                verbose: true
+            },
+            js: {
+                expand: true,
+                cwd: '<%= config.src %>/js',
+                src: '**/*',
+                dest: '<%= config.dist %>/js',
+                verbose: true
+            },
+            vendor: {
+                expand: true,
+                cwd: '<%= config.src %>/vendor',
+                src: '**/*',
+                dest: '<%= config.dist %>/vendor',
+                verbose: true
+            },
+        },
+
+        uncss: {
+            production: {
+                options: {
+                    ignore: [/js\-.+/, /animation\-.+/]
+                },
+                files: {
+                    '<%= config.dist %>/css/style.css': [
+                        '<%= config.dist %>/index.html',
+                        '<%= config.dist %>/o-nas.html'
+                    ]
+                }
+            }
         },
 
         webfont: {
@@ -239,6 +347,12 @@ module.exports = function(grunt) {
                 destCss: '<%= config.src %>/scss/modules',
                 options: {
                     stylesheet: 'scss',
+                    syntax: 'bem',
+                    templateOptions: {
+                        baseClass: 'icon',
+                        classPrefix: 'icon--',
+                        mixinPrefix: 'icon-'
+                    },
                     relativeFontPath: '../fonts'
                 }
             }
@@ -248,22 +362,42 @@ module.exports = function(grunt) {
     grunt.registerTask('development', [
         'clean',
         'assemble',
+        'jsbeautifier',
+        'jshint',
+        'fontgen',
+        'webfont',
         'sync:img',
         'sync:js',
-        'sync:fonts',
         'sync:vendor',
-        'compass:development',
-        'concat:css',
+        'csscomb',
+        'scsslint',
+        'sass:development',
+        'concat_sourcemap:css',
+        'uncss:production',
+        'cssmin:production',
         'connect:livereload',
         'watch'
     ]);
 
-    grunt.registerTask('build', [
+    grunt.registerTask('production', [
         'clean',
-        'assemble'
+        'assemble',
+        'jsbeautifier',
+        'jshint',
+        'fontgen',
+        'webfont',
+        'sync:img',
+        'sync:js',
+        'sync:vendor',
+        'csscomb',
+        'scsslint',
+        'sass:production',
+        'concat:css',
+        'uncss:production',
+        'cssmin:production'
     ]);
 
     grunt.registerTask('default', [
-        'build'
+        'production'
     ]);
 };
