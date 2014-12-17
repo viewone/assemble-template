@@ -1,5 +1,4 @@
 source 'https://rubygems.org'
 
-gem "sass"
-gem "susy"
-gem "compass", '~> 1.0.0.alpha.19'
+gem "scss-lint", '~> 0.30.0'
+gem "terminal-notifier", '~> 1.6.2'
