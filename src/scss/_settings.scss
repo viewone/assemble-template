@@ -5,8 +5,8 @@ $bold: 700;
 
 // Base Font
 $base-font-size: 16px;
-$base-font-family: Arial, sans-serif;
-$base-font-weight: $regular;
+$base-font-family: "IdealistSans-Light", Arial, sans-serif;
+$base-font-weight: $light;
 $base-line-height: 24px;
 $base-font-color: #000;
 
@@ -21,44 +21,30 @@ $alter-font-color: #000;
 $breakpoints: (smartphone: 0, tablet: 767, normal: 1023, large: 1280);
 
 // Grid
-$grid: (
-    flow: ltr,
-    math: fluid,
-    output: float,
-    gutter-position: after,
-    container: 1280px,
-    container-position: center,
-    columns: 16,
-    gutters: 0,
-    column-width: false,
-    global-box-sizing: content-box,
-    last-flow: to,
-    debug: (
-        image: hide,
-        color: rgba(#66f, .25),
-        output: background,
-        toggle: top right,
-    ),
-    use-custom: (
-        background-image: true,
-        background-options: false,
-        box-sizing: true,
-        clearfix: false,
-        rem: true,
-    ),
-    column-class: 'span_',
-    push-class: 'push_',
-    pull-class: 'pull_',
-    last-class: 'omega',
-    responsive: true,
-);
+
+$container: 1280px;
+$column: 2%;
+$gutter: 0;
+$grid-columns: 12;
+$max-width: 1280px;
+$border-box-sizing: false;
+$default-feature: min-width;
+$default-layout-direction: LTR;
+$disable-warnings: false;
+$visual-grid: false;
+$visual-grid-color: #eee;
+$visual-grid-index: back;
+$visual-grid-opacity: .4;
+$column-class: "span_";
+$push-class: "push_";
+$pull-class: "pull_";
+$last-class: "omega";
 
 //Form
-$paceholder-class: 'placeholder';
+$paceholder-class: "placeholder";
 
 //Helpers
 $sizes: (xxs: .25, xs: .5, s: .75, n: 1, m: 1.5, l: 2, xl: 2.5, xxl: 3, xxxl: 4);
 $directions: (t: top, r: right, b: bottom, l: left);
-
 $horizontal-class: h;
 $vertical-class: v;
