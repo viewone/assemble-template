@@ -10,27 +10,27 @@
                 msie8: true, // Covers MSIE 5-7 (Blocked by default)
                 firefox1: true,
                 firefox2: true // Covers FF 1-2
-                /*
-                 * Possibilities are endless...
-                 *
-                 * // MSIE Flags (Global, 5-8)
-                 * msie, msie5, msie6, msie7, msie8,
-                 * // Firefox Flags (Global, 1-3)
-                 * firefox, firefox1, firefox2, firefox3,
-                 * // Konqueror Flags (Global, 1-3)
-                 * konqueror, konqueror1, konqueror2, konqueror3,
-                 * // Chrome Flags (Global, 1-4)
-                 * chrome, chrome1, chrome2, chrome3, chrome4,
-                 * // Safari Flags (Global, 1-4)
-                 * safari, safari2, safari3, safari4,
-                 * // Opera Flags (Global, 7-10)
-                 * opera, opera7, opera8, opera9, opera10,
-                 * // Rendering Engines (Gecko, Webkit, Trident, KHTML, Presto)
-                 * gecko, webkit, trident, khtml, presto,
-                 * // Operating Systems (Win, Mac, Linux, Solaris, iPhone)
-                 * win, mac, linux, solaris, iphone,
-                 * unknown // Unknown covers everything else
-                 */
+                    /*
+                     * Possibilities are endless...
+                     *
+                     * // MSIE Flags (Global, 5-8)
+                     * msie, msie5, msie6, msie7, msie8,
+                     * // Firefox Flags (Global, 1-3)
+                     * firefox, firefox1, firefox2, firefox3,
+                     * // Konqueror Flags (Global, 1-3)
+                     * konqueror, konqueror1, konqueror2, konqueror3,
+                     * // Chrome Flags (Global, 1-4)
+                     * chrome, chrome1, chrome2, chrome3, chrome4,
+                     * // Safari Flags (Global, 1-4)
+                     * safari, safari2, safari3, safari4,
+                     * // Opera Flags (Global, 7-10)
+                     * opera, opera7, opera8, opera9, opera10,
+                     * // Rendering Engines (Gecko, Webkit, Trident, KHTML, Presto)
+                     * gecko, webkit, trident, khtml, presto,
+                     * // Operating Systems (Win, Mac, Linux, Solaris, iPhone)
+                     * win, mac, linux, solaris, iphone,
+                     * unknown // Unknown covers everything else
+                     */
             },
             // What browsers to display and their order
             display: ['chrome', 'firefox', 'safari', 'opera', 'gcf', 'msie'],
