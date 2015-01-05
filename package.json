@@ -16,7 +16,7 @@
     "grunt-contrib-htmlmin": "^0.3.0",
     "grunt-contrib-jshint": "^0.10.0",
     "grunt-contrib-watch": "~0.6.1",
-    "grunt-csscomb": "^3.0.4",
+    "grunt-csscomb": "git://github.com/viewone/grunt-csscomb.git#4a33ec",
     "grunt-fontgen": "^0.2.2",
     "grunt-jsbeautifier": "^0.2.7",
     "grunt-notify": "^0.4.1",

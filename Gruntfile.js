@@ -1,20 +1,22 @@
 /* jslint camelcase: false */
 
-/*
- * Generated on 2014-05-21
- * generator-assemble v0.4.11
- * https://github.com/assemble/generator-assemble
- *
- * syncright (c) 2014 Hariadi Hinta
- * Licensed under the MIT license.
+/**
+ * Gruntfile.js (Gruntfile build script)
+ * Version: 0.1.0
+ * Description: Gruntfile for hmtl/css ViewOne projects.
+ * Author: ViewOne Sp. z o.o. http://viewone.pl/
+ * Copyright: Copyright (c) 2014 ViewOne Sp. z o.o.
+ * License: Available under MIT license
  */
 
 'use strict';
 
 module.exports = function(grunt) {
 
+    // Load assemble
     grunt.loadNpmTasks('assemble');
 
+    // Load all grunt tasks
     require('load-grunt-tasks')(grunt);
 
     // Time how long tasks take. Can help when optimizing build times
@@ -23,12 +25,14 @@ module.exports = function(grunt) {
     // Project configuration.
     grunt.initConfig({
 
+        // Paths
         config: {
             src: 'src',
             dist: 'dist',
             date: Date.now()
         },
 
+        // Watch
         watch: {
             options: {
                 livereload: true
@@ -72,7 +76,6 @@ module.exports = function(grunt) {
                 }
             },
 
-            // When there will be changes in img catalogue execute task sync:development
             sync: {
                 files: ['<%= config.src %>/{img,vendor,js}/**/*'],
                 tasks: ['sync:img', 'sync:js', 'sync:vendor']
@@ -89,6 +92,7 @@ module.exports = function(grunt) {
             }
         },
 
+        // Assemble for generating html
         assemble: {
             pages: {
                 options: {
@@ -112,7 +116,7 @@ module.exports = function(grunt) {
             sprite: ['<%= config.dist %>/img/sprites-*.png']
         },
 
-        // Compiles Sass to CSS and generates necessary files if requested
+        // Compiles Sass to CSS
         sass: {
             options: {
                 includePaths: [
@@ -123,12 +127,13 @@ module.exports = function(grunt) {
                 imagePath: '<%= config.src %>/img',
             },
             development: {
-                options: { // Target options
+                options: {
                     sourceMap: true,
                     outputStyle: 'nested'
                 },
                 files: {
                     '<%= config.dist %>/css/style.css': '<%= config.src %>/scss/style.scss',
+                    '<%= config.dist %>/css/editor-style.css': '<%= config.src %>/scss/editor-style.scss'
                 }
             },
             production: {
@@ -138,10 +143,12 @@ module.exports = function(grunt) {
                 },
                 files: {
                     '<%= config.dist %>/css/style.css': '<%= config.src %>/scss/style.scss',
+                    '<%= config.dist %>/css/editor-style.css': '<%= config.src %>/scss/editor-style.scss'
                 }
             }
         },
 
+        // Concat css files
         concat: {
             css: {
                 src: [
@@ -153,6 +160,7 @@ module.exports = function(grunt) {
             },
         },
 
+        // Concat sourcemaps files
         concat_sourcemap: {
             css: {
                 src: [
@@ -161,9 +169,10 @@ module.exports = function(grunt) {
                     '<%= config.dist %>/css/style.css'
                 ],
                 dest: '<%= config.dist %>/css/style.css',
-            },
+            }
         },
 
+        // Simple webserver
         connect: {
             options: {
                 port: 9000,
@@ -181,6 +190,7 @@ module.exports = function(grunt) {
             }
         },
 
+        // Sort and prettify scss files
         csscomb: {
             scss: {
                 expand: true,
@@ -190,6 +200,7 @@ module.exports = function(grunt) {
             }
         },
 
+        // Minimalize css files
         cssmin: {
             production: {
                 files: {
@@ -198,6 +209,7 @@ module.exports = function(grunt) {
             }
         },
 
+        // Generate webfonts from fonts in <%= config.src %>/fonts directory
         fontgen: {
             options: {
 
@@ -217,18 +229,20 @@ module.exports = function(grunt) {
             }
         },
 
-        htmlmin: { // Task
-            dist: { // Target
-                options: { // Target options
+        // Minimalize html files
+        htmlmin: {
+            dist: {
+                options: {
                     removeComments: true,
                     collapseWhitespace: true
                 },
                 files: { // Dictionary of files
                     'dist/index.html': 'dist/index.html',
                 }
-            },
+            }
         },
 
+        // Prettify js files
         jsbeautifier: {
             files: [
                 'src/js/**/*.js',
@@ -244,7 +258,7 @@ module.exports = function(grunt) {
             }
         },
 
-        // Make sure code styles are up to par and there are no obvious mistakes
+        // Validate js files and make sure code styles are up to par and there are no obvious mistakes
         jshint: {
             options: {
                 jshintrc: '.jshintrc'
@@ -257,6 +271,7 @@ module.exports = function(grunt) {
             ]
         },
 
+        // Notify task used when scss files are compiled
         notify: {
             scss: {
                 options: {
@@ -266,6 +281,7 @@ module.exports = function(grunt) {
             }
         },
 
+        // Validate scss files and make sure they follow code style rules
         scsslint: {
             options: {
                 bundleExec: true,
@@ -281,27 +297,19 @@ module.exports = function(grunt) {
             ],
         },
 
+        // Generate image with sprites and scss file using <%= config.src %>/sprite.scss.mustache template
         sprite: {
             all: {
                 src: '<%= config.src %>/img/sprites/*.png',
                 destImg: '<%= config.dist %>/img/sprites-<%= config.date %>.png',
                 imgPath: '../img/sprites-<%= config.date %>.png',
                 cssFormat: 'css',
-                destCSS: '<%= config.src %>/scss/modules/_sprites.scss'
-                    // // OPTIONAL: Specify css options
-                    // cssOpts: {
-                    //     // Some templates allow for skipping of function declarations
-                    //     functions: false,
-
-                //     // CSS template allows for overriding of CSS selectors
-                //     cssClass: function (item) {
-                //         return '.sprite-' + item.name;
-                //     }
-                // }
+                destCSS: '<%= config.src %>/scss/modules/_sprites.scss',
+                cssTemplate: '<%= config.src %>/sprite.scss.mustache'
             }
         },
 
-        // Task for syncing content of img catalogue content to dest
+        // Sync content of img, js and vendor catalogue content to dest
         sync: {
             img: {
                 expand: true,
@@ -326,20 +334,21 @@ module.exports = function(grunt) {
             },
         },
 
+        // Remove unused css
         uncss: {
             production: {
                 options: {
-                    ignore: [/js\-.+/, /animation\-.+/]
+                    ignore: [/js\-.+/]
                 },
                 files: {
                     '<%= config.dist %>/css/style.css': [
-                        '<%= config.dist %>/index.html',
-                        '<%= config.dist %>/o-nas.html'
+                        '<%= config.dist %>/index.html'
                     ]
                 }
             }
         },
 
+        // Generate webfont with icons from <%= config.src %>/svg/icons catalogue
         webfont: {
             icons: {
                 src: '<%= config.src %>/svg/icons/*.svg',
@@ -349,9 +358,9 @@ module.exports = function(grunt) {
                     stylesheet: 'scss',
                     syntax: 'bem',
                     templateOptions: {
-                        baseClass: 'icon',
-                        classPrefix: 'icon--',
-                        mixinPrefix: 'icon-'
+                        baseClass: 'svg',
+                        classPrefix: 'svg--',
+                        mixinPrefix: 'svg-'
                     },
                     relativeFontPath: '../fonts'
                 }
@@ -359,6 +368,7 @@ module.exports = function(grunt) {
         }
     });
 
+    // Development taks
     grunt.registerTask('development', [
         'clean',
         'assemble',
@@ -373,12 +383,13 @@ module.exports = function(grunt) {
         'scsslint',
         'sass:development',
         'concat_sourcemap:css',
-        'uncss:production',
+        //'uncss:production',
         'cssmin:production',
         'connect:livereload',
         'watch'
     ]);
 
+    // Production taks
     grunt.registerTask('production', [
         'clean',
         'assemble',
@@ -393,7 +404,7 @@ module.exports = function(grunt) {
         'scsslint',
         'sass:production',
         'concat:css',
-        'uncss:production',
+        //'uncss:production',
         'cssmin:production'
     ]);
 
