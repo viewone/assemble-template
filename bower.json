@@ -8,7 +8,7 @@
     "jquery": "~2.1",
     "jReject": "1.0.2",
     "retina.js": "1.3.0",
-    "kicss": "git@github.com:viewone/kicss.git#0.0.1-alpha.5",
+    "kicss": "git@github.com:viewone/kicss.git#3268468ad70c0d0b819644c33945aab831a58043",
     "normalize-css": "3.0.1",
     "bourbon": "4.0.2",
     "neat": "1.7.0"

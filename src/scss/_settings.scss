@@ -5,8 +5,8 @@ $bold: 700;
 
 // Base Font
 $base-font-size: 16px;
-$base-font-family: "IdealistSans-Light", Arial, sans-serif;
-$base-font-weight: $light;
+$base-font-family: Helvetica, Arial, sans-serif;
+$base-font-weight: $regular;
 $base-line-height: 24px;
 $base-font-color: #000;
 
@@ -18,15 +18,14 @@ $alter-line-height: 16px;
 $alter-font-color: #000;
 
 //Breakpoints
-$breakpoints: (smartphone: 0, tablet: 767, normal: 1023, large: 1280);
+$breakpoints: (normal: 1280, tablet: 1023, smartphone: 767);
 
 // Grid
-
-$container: 1280px;
+$container: 1240px;
 $column: 2%;
 $gutter: 0;
 $grid-columns: 12;
-$max-width: 1280px;
+$max-width: 1240px;
 $border-box-sizing: false;
 $default-feature: min-width;
 $default-layout-direction: LTR;

@@ -77,8 +77,8 @@ module.exports = function(grunt) {
             },
 
             sync: {
-                files: ['<%= config.src %>/{img,vendor,js}/**/*'],
-                tasks: ['sync:img', 'sync:js', 'sync:vendor']
+                files: ['<%= config.src %>/{img,vendor,js,svg}/**/*'],
+                tasks: ['sync:img', 'sync:js', 'sync:svg', 'sync:vendor']
             },
 
             webfont: {
@@ -305,7 +305,7 @@ module.exports = function(grunt) {
                 imgPath: '../img/sprites-<%= config.date %>.png',
                 cssFormat: 'css',
                 destCSS: '<%= config.src %>/scss/modules/_sprites.scss',
-                cssTemplate: '<%= config.src %>/sprite.scss.mustache'
+                cssTemplate: '<%= config.src %>/../sprite.scss.mustache'
             }
         },
 
@@ -323,6 +323,16 @@ module.exports = function(grunt) {
                 cwd: '<%= config.src %>/js',
                 src: '**/*',
                 dest: '<%= config.dist %>/js',
+                verbose: true
+            },
+            svg: {
+                expand: true,
+                cwd: '<%= config.src %>/svg',
+                src: [
+                    '**/*',
+                    '!icons/*'
+                ],
+                dest: '<%= config.dist %>/svg',
                 verbose: true
             },
             vendor: {
@@ -376,15 +386,16 @@ module.exports = function(grunt) {
         'jshint',
         'fontgen',
         'webfont',
+        'sprite',
         'sync:img',
         'sync:js',
+        'sync:svg',
         'sync:vendor',
+        'csscomb',
         'csscomb',
         'scsslint',
         'sass:development',
-        'concat_sourcemap:css',
-        //'uncss:production',
-        'cssmin:production',
+        'concat:css',
         'connect:livereload',
         'watch'
     ]);
@@ -397,9 +408,12 @@ module.exports = function(grunt) {
         'jshint',
         'fontgen',
         'webfont',
+        'sprite',
         'sync:img',
         'sync:js',
         'sync:vendor',
+        'sync:svg',
+        'csscomb',
         'csscomb',
         'scsslint',
         'sass:production',

@@ -1,3 +1,10 @@
 dist
 node_modules
 src/vendor
+
+src/scss/modules/_icons.scss
+src/scss/modules/_sprites.scss
+
+src/img/sprites-*
+
+src/scss/modules/icons.html
