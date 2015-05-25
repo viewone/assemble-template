@@ -305,7 +305,7 @@ module.exports = function(grunt) {
                 imgPath: '../img/sprites-<%= config.date %>.png',
                 cssFormat: 'css',
                 destCSS: '<%= config.src %>/scss/modules/_sprites.scss',
-                cssTemplate: '<%= config.src %>/../sprite.scss.mustache'
+                cssTemplate: 'sprite.scss.mustache'
             }
         },
 
@@ -366,6 +366,7 @@ module.exports = function(grunt) {
                 destCss: '<%= config.src %>/scss/modules',
                 options: {
                     stylesheet: 'scss',
+                    template: 'svgicons.css',
                     syntax: 'bem',
                     templateOptions: {
                         baseClass: 'svg',
