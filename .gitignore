@@ -2,9 +2,9 @@ dist
 node_modules
 src/vendor
 
-src/scss/modules/_icons.scss
-src/scss/modules/_sprites.scss
+src/scss/objects/_icons.scss
+src/scss/objects/_sprites.scss
 
 src/img/sprites-*
 
-src/scss/modules/icons.html
+src/scss/objects/icons.html

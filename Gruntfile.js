@@ -67,7 +67,7 @@ module.exports = function(grunt) {
             scss: {
                 files: [
                     '<%= config.src %>/scss/**/*.{scss,sass}',
-                    '<%= config.src %>/scss/modules/**/*.{scss,sass}',
+                    '<%= config.src %>/scss/objects/**/*.{scss,sass}',
                     '<%= config.src %>/vendor/**/*.{scss,sass}'
                 ],
                 tasks: ['sass:development', 'concat:css', 'notify:scss'],
@@ -288,8 +288,8 @@ module.exports = function(grunt) {
                 colorizeOutput: true,
                 config: '.scss-lint.yml',
                 exclude: [
-                    '<%= config.src %>/scss/modules/_sprites.scss',
-                    '<%= config.src %>/scss/modules/_icons.scss'
+                    '<%= config.src %>/scss/objects/_sprites.scss',
+                    '<%= config.src %>/scss/objects/_icons.scss'
                 ]
             },
             scss: [
@@ -304,7 +304,7 @@ module.exports = function(grunt) {
                 destImg: '<%= config.dist %>/img/sprites-<%= config.date %>.png',
                 imgPath: '../img/sprites-<%= config.date %>.png',
                 cssFormat: 'css',
-                destCSS: '<%= config.src %>/scss/modules/_sprites.scss',
+                destCSS: '<%= config.src %>/scss/objects/_sprites.scss',
                 cssTemplate: 'sprite.scss.mustache'
             }
         },
@@ -363,7 +363,7 @@ module.exports = function(grunt) {
             icons: {
                 src: '<%= config.src %>/svg/icons/*.svg',
                 dest: '<%= config.dist %>/fonts',
-                destCss: '<%= config.src %>/scss/modules',
+                destCss: '<%= config.src %>/scss/objects',
                 options: {
                     stylesheet: 'scss',
                     template: 'svgicons.css',

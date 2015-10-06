@@ -1,8 +1,22 @@
+// Libs
 @import "kicss";
+
+// Settings
 @import "settings";
 
-@import "modules/grid";
-@import "modules/helpers";
-@import "modules/icons";
-@import "modules/jreject";
-@import "modules/sprites";
+// Tools
+@import "tools/mixins";
+
+// Generic
+
+// Base
+@import "base/typography";
+
+//Objects
+@import "objects/icons";
+@import "objects/sprites";
+
+//Components
+
+//Trumps
+@import "trumps/helpers";

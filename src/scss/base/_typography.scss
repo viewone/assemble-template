@@ -3,3 +3,8 @@ body {
 }
 
 @include font-smoothing;
+
+@mixin typography() {
+}
+
+@include typography;
